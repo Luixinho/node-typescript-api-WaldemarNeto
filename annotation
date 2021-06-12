@@ -1,0 +1,5 @@
+eslint faz correções no código js (no caso ts), revisa e corrige erros
+
+ts-node-dev compila as alterações do projeto ao inves de ter que compilar o projeto inteiro toda vez que for roda-lo
+
+prettier é uma ferramenta de suporte de escrita para corrigir despadronização na escrita 
