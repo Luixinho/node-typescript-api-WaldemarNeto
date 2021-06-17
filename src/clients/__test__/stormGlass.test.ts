@@ -1,6 +1,6 @@
 import { StormGlass } from '@src/clients/stormGlass';
-import stormGlassNormalizedResponseFixture from '@test/fixtures/stromGlass_normalized_response_3_hours.json';
-import * as stormglassWeatherPointFixture from '@test/fixtures/stormGlass_weather_3_hours.json';
+import stormGlassNormalizedResponseFixture from '@test/fixtures/stormglass_normalized_response_3_hours.json';
+import * as stormglassWeatherPointFixture from '@test/fixtures/stormglass_weather_3_hours.json';
 import * as HTTPUtil from '@src/util/request';
 
 jest.mock('@src/util/request');
