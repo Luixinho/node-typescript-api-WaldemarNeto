@@ -15,6 +15,7 @@ describe('Beaches functional tests', () => {
 
       const response = await global.testRequest.post('/beaches').send(newBeach);
       expect(response.status).toBe(201);
+      // expect.objectContaining fala pra ele procurar isso que estou passando como parte da resposta, como uma parte contida no que ele vai receber ao inves de esperar que oq eu recebo seja exatamente isso
       expect(response.body).toEqual(expect.objectContaining(newBeach));
     });
 
@@ -30,7 +31,7 @@ describe('Beaches functional tests', () => {
       expect(response.status).toBe(422);
       expect(response.body).toEqual({
         error:
-          'Beach validation failed: lat: Cast to Number failed for value "invalid_string" at path "lat"',
+          'Beach validation failed: lat: Cast to Number failed for value "invalid_string" (type string) at path "lat"',
       });
     });
 
