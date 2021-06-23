@@ -35,8 +35,8 @@ describe('Beaches functional tests', () => {
       });
     });
 
-    // it.skip('should return 500 when there is any error other than validation error', async () => {
-    //   //TODO think in a way to throw a 500
-    // });
+    it.skip('should return 500 when there is any error other than validation error', async () => {
+      //TODO think in a way to throw a 500
+    });
   });
 });
