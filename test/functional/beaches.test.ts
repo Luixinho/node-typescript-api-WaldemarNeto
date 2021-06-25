@@ -1,8 +1,22 @@
 import { Beach } from '@src/models/beach';
+import { User } from '@src/models/user';
+import AuthService from '@src/services/auth';
 
 describe('Beaches functional tests', () => {
+  const defaultUser = {
+    name: 'John Doe',
+    email: 'john2@mail.com',
+    password: '1234',
+  };
+
+  let token: string;
   // deletar todas as praias do banco de dados para garantir que os estados de teste estarão limpos
-  beforeAll(async () => await Beach.deleteMany({}));
+  beforeEach(async () => {
+    await Beach.deleteMany({});
+    await User.deleteMany({});
+    const user = await new User(defaultUser).save();
+    token = AuthService.generateToken(user.toJSON());
+  });
   // teste para criação de uma nova praia
   describe('When creating a beach', () => {
     it('should create a beach with success', async () => {
@@ -13,7 +27,10 @@ describe('Beaches functional tests', () => {
         position: 'E',
       };
 
-      const response = await global.testRequest.post('/beaches').send(newBeach);
+      const response = await global.testRequest
+        .post('/beaches')
+        .set({ 'x-access-token': token })
+        .send(newBeach);
       expect(response.status).toBe(201);
       // expect.objectContaining fala pra ele procurar isso que estou passando como parte da resposta, como uma parte contida no que ele vai receber ao inves de esperar que oq eu recebo seja exatamente isso
       expect(response.body).toEqual(expect.objectContaining(newBeach));
@@ -26,7 +43,10 @@ describe('Beaches functional tests', () => {
         name: 'Manly',
         position: 'E',
       };
-      const response = await global.testRequest.post('/beaches').send(newBeach);
+      const response = await global.testRequest
+        .post('/beaches')
+        .set({ 'x-access-token': token })
+        .send(newBeach);
 
       expect(response.status).toBe(422);
       expect(response.body).toEqual({

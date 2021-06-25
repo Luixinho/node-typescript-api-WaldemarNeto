@@ -1,6 +1,11 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import config from 'config';
+import { User } from '@src/models/user';
+
+export interface DecodedUser extends Omit<User, '_id'> {
+  id: string;
+}
 
 export default class AuthService {
   // usando bcrypt para criptografar as senhas dos usuários
@@ -23,5 +28,10 @@ export default class AuthService {
     return jwt.sign(payload, config.get('App.auth.key'), {
       expiresIn: config.get('App.auth.tokenExpiresIn'),
     });
+  }
+
+  public static decodeToken(token: string): DecodedUser {
+    // as DecodedUser esta forçando o typescript a aceitar que ali vai retornar esse typo
+    return jwt.verify(token, config.get('App.auth.key')) as DecodedUser;
   }
 }
