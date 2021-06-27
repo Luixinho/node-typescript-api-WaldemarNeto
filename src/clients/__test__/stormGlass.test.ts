@@ -1,5 +1,5 @@
 import { StormGlass } from '@src/clients/stormGlass';
-import stormGlassNormalizedResponseFixture from '@test/fixtures/stormglass_normalized_response_3_hours.json';
+import stormglassNormalizedResponseFixture from '@test/fixtures/stormglass_normalized_response_3_hours.json';
 import * as stormglassWeatherPointFixture from '@test/fixtures/stormglass_weather_3_hours.json';
 import * as HTTPUtil from '@src/util/request';
 
@@ -22,7 +22,7 @@ describe('stromGlass client', () => {
 
     const stormGlass = new StormGlass(mockedRequest);
     const response = await stormGlass.fetchPoints(lat, lng);
-    expect(response).toEqual(stormGlassNormalizedResponseFixture);
+    expect(response).toEqual(stormglassNormalizedResponseFixture);
   });
 
   // teste para validar se a resposta da api esta com todos os dados, caso não esteja, a resposta é excluida e a requisição retorna um array vazio
