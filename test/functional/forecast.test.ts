@@ -1,5 +1,5 @@
 import { Beach, BeachPosition } from '@src/models/beach';
-import stormGlassWeather3HoursFixture from '@test/fixtures/stormglass_weather_3_hours.json';
+import stormGlassWeather3HoursFixture from '@test/fixtures/stormglass_weather_3_hours';
 import apiForecastResponse1BeachFixture from '@test/fixtures/api_forecast_response_1_beach.json';
 import nock from 'nock';
 import { User } from '@src/models/user';
