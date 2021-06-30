@@ -2,7 +2,7 @@
   "App": {
     "port": 3000,
     "database": {
-      "mongoUrl": "kamino.mongodb.umbler.com:47988"
+      "mongoUrl": "mongodb://localhost:27017/surf-forecast"
     },
     "auth": {
       "key": "some-key",
