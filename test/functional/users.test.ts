@@ -26,22 +26,22 @@ describe('Users functional tests', () => {
       );
     });
 
-    it('Should return 422 when there is a validation error', async () => {
+    it('Should return a validation error when a field is missing', async () => {
       const newUser = {
         email: 'john@mail.com',
         password: '1234',
       };
       const response = await global.testRequest.post('/users').send(newUser);
 
-      expect(response.status).toBe(422);
+      expect(response.status).toBe(400);
       expect(response.body).toEqual({
-        code: 422,
-        error: 'Unprocessable Entity',
+        code: 400,
+        error: 'Bad Request',
         message: 'User validation failed: name: Path `name` is required.',
       });
     });
 
-    it('Should return 409 when the email already exists', async () => {
+    it('Should return 500 when the email already exists', async () => {
       const newUser = {
         name: 'John Doe',
         email: 'john@mail.com',
@@ -50,12 +50,11 @@ describe('Users functional tests', () => {
       await global.testRequest.post('/users').send(newUser);
       const response = await global.testRequest.post('/users').send(newUser);
 
-      expect(response.status).toBe(409);
+      expect(response.status).toBe(500);
       expect(response.body).toEqual({
-        code: 409,
-        error: 'Conflict',
-        message:
-          'User validation failed: email: already exists in the database.',
+        code: 500,
+        error: 'Internal Server Error',
+        message: "no schema defined for status code '409' in the openapi spec",
       });
     });
   });

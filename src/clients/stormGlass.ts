@@ -1,6 +1,7 @@
 import { InternalError } from '@src/util/errors/internal-error';
 import config, { IConfig } from 'config';
 import * as HTTPUtil from '@src/util/request';
+import { TimeUtil } from '@src/util/time';
 
 export interface StormGlassPointSource {
   [key: string]: number; // key ali dentro representa que a chave do array (valor principal, geralmente o primeiro) vai ser uma string isso torna dinâmico, qualquer string que entre ali sera tipada como number
@@ -61,13 +62,16 @@ export class StormGlass {
 
   public async fetchPoints(lat: number, lng: number): Promise<ForecastPoint[]> {
     // dentro das <> está setado o tipo da resposta que virá desse método get
+
+    const endTimestamp = TimeUtil.getUnixTimeForAFutureDay(1);
+
     try {
       const response = await this.request.get<StormGlassForecastResponse>(
         `${stormGlassResourceConfig.get(
           'apiUrl'
         )}/weather/point?lat=${lat}&lng=${lng}&params=${
           this.stormGlassAPIParams
-        }&source=${this.stormGlassAPISource}`,
+        }&source=${this.stormGlassAPISource}&end=${endTimestamp}`,
         {
           headers: {
             Authorization: stormGlassResourceConfig.get('apiToken'),
